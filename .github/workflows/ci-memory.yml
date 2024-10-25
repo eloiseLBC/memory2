@@ -53,16 +53,16 @@ jobs:
 
       - name: Debug secrets  # Étape de débogage temporaire
         run: |
-          echo "HOST: ${{ secrets.HOST }}"
-          echo "SSH_USERNAME: ${{ secrets.SSH_USERNAME }}"
-          echo "DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}"
+          echo "HOST: 127.0.0.1"
+          echo "SSH_USERNAME: eloise"
+          echo "DOCKER_USERNAME: "
 
       - name: Deploy to Server
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          host: 127.0.0.1
+          username: eloise
+          password: :@Azertyqsd82
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/memory
             docker run -d -p 80:80 ${{ secrets.DOCKER_USERNAME }}/memory
