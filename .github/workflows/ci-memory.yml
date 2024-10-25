@@ -12,9 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Load environment variables
-        run: source load-env.sh
-
       - name: Test JPEG files for corruption
         run: |
           for file in $(find . -name '*.jpg'); do
@@ -31,9 +28,6 @@ jobs:
       - name: Build Docker image
         run: docker build -t eloiselbc/memory .
 
-      - name: List Docker images
-        run: docker images
-
   push-memory:
     runs-on: self-hosted
     needs: build-memory
@@ -48,7 +42,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image to Docker Hub
-        run: docker push eloiselbc/memory
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/memory
 
   deploy-memory:
     runs-on: self-hosted
@@ -57,7 +51,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Connect to host via SSH and deploy
+      - name: Deploy to Server
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.HOST }}
