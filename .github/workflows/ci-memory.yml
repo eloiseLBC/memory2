@@ -64,7 +64,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /chemin/vers/votre/projet  # Modifiez par le chemin du projet sur votre serveur
-            docker-compose down            # Arrête les containers existants
-            docker-compose pull            # Met à jour les images si nécessaire
-            docker-compose up -d           # Lance les containers en arrière-plan
+            cd /mnt/c/Idea_projects/memory-main 
+            docker-compose down
+            docker-compose pull
+            docker-compose up -d
