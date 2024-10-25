@@ -1,0 +1,16 @@
+version: '3'
+services:
+  memory:
+    image: eloiselbc/memory:latest  # Remplacez par le nom de votre image Docker
+    container_name: memory_container
+    ports:
+      - "80:80"  # Redirige le port 80 de l'hôte vers le port 80 du container
+    environment:
+      # Ajoutez des variables d'environnement si nécessaire
+      - ENV_VAR1=value1
+      - ENV_VAR2=value2
+    volumes:
+      # Si vous avez besoin de monter des volumes entre votre hôte et le container
+      - ./html:/var/concentration/html  # Remplacez par les chemins corrects
+      - ./conf/nginx.conf:/etc/nginx/nginx.conf  # Remplacez par les chemins corrects
+    restart: always  # Redémarre automatiquement le container en cas d'erreur
