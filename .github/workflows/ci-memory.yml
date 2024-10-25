@@ -51,6 +51,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Debug secrets  # Étape de débogage temporaire
+        run: |
+          echo "HOST: ${{ secrets.HOST }}"
+          echo "SSH_USERNAME: ${{ secrets.SSH_USERNAME }}"
+          echo "DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}"
+
       - name: Deploy to Server
         uses: appleboy/ssh-action@v0.1.6
         with:
