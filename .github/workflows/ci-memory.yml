@@ -51,18 +51,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Debug secrets  # Étape de débogage temporaire
+      - name: Debug secrets
         run: |
-          echo "HOST: 127.0.0.1"
-          echo "SSH_USERNAME: eloise"
-          echo "DOCKER_USERNAME: "
+          echo "HOST: ${{ secrets.HOST }}"
+          echo "SSH_USERNAME: ${{ secrets.SSH_USERNAME }}"
+          echo "DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}"
 
-      - name: Deploy to Server
+      - name: Deploy to Server using Docker Compose
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: 127.0.0.1
-          username: eloise
-          password: :@Azertyqsd82
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/memory
-            docker run -d -p 80:80 ${{ secrets.DOCKER_USERNAME }}/memory
+            cd /chemin/vers/votre/projet  # Modifiez par le chemin du projet sur votre serveur
+            docker-compose down            # Arrête les containers existants
+            docker-compose pull            # Met à jour les images si nécessaire
+            docker-compose up -d           # Lance les containers en arrière-plan
